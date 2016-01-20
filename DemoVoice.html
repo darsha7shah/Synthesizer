@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript">
+            //$(document).load()
+            $(document).ready(function () {
+                $(".play").click(function () {
+                    var voice = $("#txt-voice").val().trim();
+                    var datastr = "voice=" + voice;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'DemoVoice.php',
+                        data: datastr,
+                        success: function (data) {
+                            data=data.trim();
+                            $("#play").attr("src", "audio/test/"+data+".wav");
+                            $("#audio").load();
+                            $("#audio").trigger('play');
+                        }
+                    })
+                })
+            });
+
+
+        </script>
+    </head>
+    <body>
+        <textarea id="txt-voice"></textarea>
+        <input type="button" class="play" value="Play"/>
+
+
+
+        <audio id="audio">
+            <source id="play" src="" type=" audio/wav">
+            Your browser does not support the audio element.
+        </audio>    
+    </body>
+</html>
